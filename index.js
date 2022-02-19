@@ -77,7 +77,7 @@ app.put("/collection/:collectionName/:id", (req, res, next) => {
         (e, result) => {
             if(e) return next(e)
 
-            res.send((result.n === 1)? {'msg': "success"} : {"msg": "error"} )
+            res.send((result.result.n === 1)? {'msg': "success"} : {"msg": "error"} )
         }
     )
 })
@@ -90,7 +90,7 @@ app.post('/collection/:collectionName', (req, res, next) => {
 })
 
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 app.listen(port , () => {
     console.log("working")
 })
