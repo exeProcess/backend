@@ -1,9 +1,12 @@
 const express = require("express")
 const mongoClient = require("mongodb").MongoClient
+const cors = require("cors")
 const app = express()
 let db;
+app.use('cors()')
 const ObjectID = require("mongodb").ObjectId
 app.use(express.json())
+
 
 //const DB_url = "mongodb+srv://root:root@cluster0.whzfy.mongodb.net";
 mongoClient.connect("mongodb+srv://root:root@cluster0.whzfy.mongodb.net",(error, database) => {
