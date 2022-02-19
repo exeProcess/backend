@@ -3,7 +3,6 @@ const mongoClient = require("mongodb").MongoClient
 const cors = require("cors")
 const app = express()
 let db
-app.use('cors()')
 const ObjectID = require("mongodb").ObjectId
 app.use(express.json())
 
@@ -13,11 +12,10 @@ mongoClient.connect("mongodb+srv://root:root@cluster0.whzfy.mongodb.net",(error,
     db = database.db("Webstore")
     console.log("database connected")
 })
-
+app.use(cors())
 app.use(function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*')
     res.header("Access-Control-Allow-Headers", "*")
-    res.header("Access-Control-Allow-Origin", "*")
     res.header('Access-Control-Allow-Methods', '*')
     next()
 })
