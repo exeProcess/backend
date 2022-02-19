@@ -2,24 +2,28 @@ const express = require("express")
 const mongoClient = require("mongodb").MongoClient
 const cors = require("cors")
 const app = express()
-let db;
+let db
 app.use('cors()')
 const ObjectID = require("mongodb").ObjectId
 app.use(express.json())
 
 
-//const DB_url = "mongodb+srv://root:root@cluster0.whzfy.mongodb.net";
+//const DB_url = "mongodb+srv://root:root@cluster0.whzfy.mongodb.net"
 mongoClient.connect("mongodb+srv://root:root@cluster0.whzfy.mongodb.net",(error, database) => {
     db = database.db("Webstore")
-    console.log("database connected");
+    console.log("database connected")
 })
 
 app.use(function(req, res, next){
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Headers", "*");
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Methods', '*');
-    next();
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header("Access-Control-Allow-Headers", "*")
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header('Access-Control-Allow-Methods', '*')
+    next()
+})
+app.use((req, res, next) => {
+    console.log(req.url)
+    next()
 })
 app.get("/",(req, res) => {
     res.send("welcome to after school backend")
@@ -79,14 +83,14 @@ app.put("/collection/:collectionName/:id", (req, res, next) => {
 })
 app.post('/collection/:collectionName', (req, res, next) => {
     req.collection.insert(req.body, (err, result) => {
-        if (err) return next(err);
+        if (err) return next(err)
         res.send(result.ops)
-        //console.log(req.body);
-     });
+        //console.log(req.body)
+     })
 })
 
 
 const port = process.env.PORT || 3000
 app.listen(port , () => {
-    console.log("working");
+    console.log("working")
 })
